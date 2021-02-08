@@ -51,6 +51,6 @@ vector<int> splitIntString(string s) {
     return v;
 }
 
-void writeData() {
+void writeData(vector<int> machines, vector<int> parts) {
 
 }

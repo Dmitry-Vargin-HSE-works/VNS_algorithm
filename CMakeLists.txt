@@ -3,4 +3,6 @@ project(VNS)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(VNS main.cpp usingdata.h usingdata.cpp)
+add_executable(VNS main.cpp
+        usingdata.h usingdata.cpp
+        support.h supportD.cpp supportK.cpp)

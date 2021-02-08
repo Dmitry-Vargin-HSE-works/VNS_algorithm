@@ -7,7 +7,7 @@
 using namespace std;
 
 vector<vector<int>> readData();
-void writeData();
+void writeData(vector<int> machines, vector<int> parts);
 
 vector<int> splitIntString(string s);
 
