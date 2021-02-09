@@ -6,8 +6,8 @@
 
 using namespace std;
 
-vector<vector<int>> readData();
-void writeData(vector<int> machines, vector<int> parts);
+vector<vector<short>> readData();
+void writeData(vector<vector<int>> solution);
 
 vector<int> splitIntString(string s);
 
