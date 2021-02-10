@@ -7,7 +7,7 @@
 using namespace std;
 
 vector<vector<short>> readData();
-void writeData(vector<vector<short>> solution);
+void writeData(vector<vector<short>> data, vector<vector<short>> solution);
 
 vector<int> splitIntString(string s);
 

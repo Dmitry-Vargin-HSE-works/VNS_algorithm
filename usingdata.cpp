@@ -1,4 +1,5 @@
 #include "usingdata.h"
+#include "localSearch.h"
 
 #include <vector>
 #include <string>
@@ -54,19 +55,24 @@ vector<int> splitIntString(string s) {
     return v;
 }
 
-void writeData(vector<vector<short>> solution) {
+void writeData(vector<vector<short>> data, vector<vector<short>> solution) {
     string path = filesystem::current_path().string();
     path = path.substr(0, path.rfind('/'));
     ofstream output_file(path + "/data/output.txt");
 
+    cout << "New best! " << calculateFormula(data, solution) << "\n";
     for (short m : solution[0]) {
+        cout << m << " ";
         output_file << m << " ";
     }
     output_file << "\n";
+    cout << "\n";
     for (short p : solution[1]) {
+        cout << p << " ";
         output_file << p << " ";
     }
     output_file << "\n";
+    cout << "\n\n";
 
     output_file.close();
 }
