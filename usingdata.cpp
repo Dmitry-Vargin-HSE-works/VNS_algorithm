@@ -8,6 +8,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <map>
+#include <sstream>
 
 vector<vector<short>> readData() {
     vector<vector<short>> a;
