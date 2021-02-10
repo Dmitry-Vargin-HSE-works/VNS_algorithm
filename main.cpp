@@ -15,7 +15,7 @@
 void VNS(unsigned long kmax, unsigned long lmax) {
     vector<vector<short>> data = readData();
     unsigned long k = 0;
-    vector<vector<int>> best_solution; // = convertDataToStartSolution
+    vector<vector<short>> best_solution; // = convertDataToStartSolution
     while (k != kmax) {
         //Shaking()
         // vector<vector<int>> local_best = local search
@@ -27,5 +27,16 @@ void VNS(unsigned long kmax, unsigned long lmax) {
 }
 
 int main() {
+    srand(time(nullptr));
+    /*
+    vector<vector<short>> data = readData();
+    vector<vector<short>> result = createStartSolution(data.size(), data[0].size());
+    for (vector<short> v : result) {
+        for (short x : v) {
+            cout << x << " ";
+        }
+        cout << "\n";
+    }
+    */
     return 0;
 }

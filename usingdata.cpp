@@ -27,7 +27,9 @@ vector<vector<short>> readData() {
     for (int i = 0; i < n; ++i) {
         getline(input_file, line);
         auto input_numbers = splitIntString(line);
-
+        // use it if prefix of strings will be no sorted
+        // int index = input_numbers[0];
+        input_numbers.erase(input_numbers.begin());
         vector<short> tmp;
         for (int j = 0; j < m; ++j) {
             tmp.push_back(0);
@@ -51,16 +53,16 @@ vector<int> splitIntString(string s) {
     return v;
 }
 
-void writeData(vector<vector<int>> solution) {
+void writeData(vector<vector<short>> solution) {
     string path = filesystem::current_path().string();
     path = path.substr(0, path.rfind('/'));
     ofstream output_file(path + "/data/output.txt");
 
-    for (int m : solution[0]) {
+    for (short m : solution[0]) {
         output_file << m << " ";
     }
     output_file << "\n";
-    for (int p : solution[1]) {
+    for (short p : solution[1]) {
         output_file << p << " ";
     }
     output_file << "\n";
