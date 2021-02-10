@@ -12,6 +12,13 @@
 
 using namespace std;
 
-vector<vector<int>> localSearch(vector<vector<int>> start_solution);
+vector<vector<int>> localSearch(vector<vector<int>> start_solution,
+                                vector<vector<int>> best_solution, int lmax);
+double calculateFormula(vector<vector<int>> start_solution,
+                        vector<vector<int>> best_solution);
+void moveRow (vector<vector<int>> best_solution,
+              int first_row, int second_row);
+void moveColumns(vector<vector<int>> best_solution,
+                 int first_columns, int second_columns);
 
 #endif //VNS_LOCALSEARCH_H
