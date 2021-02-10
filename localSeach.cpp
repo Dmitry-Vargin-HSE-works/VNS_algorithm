@@ -1,5 +1,10 @@
 #include "localSearch.h"
 
+vector<vector<int>> localSearch(vector<vector<int>> start_solution) {
+  vector<vector<int>> result;
+  return result;
+}
+
 double calculateFormula(vector<vector<int>> start_solution,
                         vector<vector<int>> best_solution) {
   int all_num_1 = 0; // number of all 1
