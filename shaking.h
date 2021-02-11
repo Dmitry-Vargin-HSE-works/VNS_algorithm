@@ -16,14 +16,16 @@
 
 using namespace std;
 
+// checked
 vector<vector<short>> createStartSolution(int m, int p);
 
-vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> solution); // main function
+vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> solution, unsigned long lmax); // main function
 
 vector<vector<short>> divide(vector<vector<short>> solution, short factory); // divide solution into pieces
 vector<vector<short>> merge(vector<vector<short>> solution, short first, short second); // merge them
 
-unsigned short getFactoryNum(const vector<vector<short>>& solution);
-bool isCorrectSolution(vector<vector<short>> solution);
+// checked
+unsigned short getFactoryNum(vector<vector<short>> solution);
+// short isCorrectSolution(vector<vector<short>> solution);
 
 #endif //VNS_SHAKING_H

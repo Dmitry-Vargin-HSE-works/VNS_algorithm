@@ -52,7 +52,7 @@ double calculateFormula(vector<vector<short>> data,
     }
   }
 
-  return (num_1 * 1.0 / (all_num_1 + num_0) * 1.0);
+  return num_1 * 1.0 / (all_num_1 + num_0);
 }
 
 void moveRow (vector<vector<short>> solution,
