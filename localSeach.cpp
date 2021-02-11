@@ -10,20 +10,30 @@ vector<vector<short>> localSearch(vector<vector<short>> data,
         if (choice == 0) { // moveRow()
           short first_row = rand() % solution[0].size();
           short second_row = rand() % solution[0].size();
-          while (solution[0][first_row] == solution[0][second_row]) {
-                second_row = rand() % solution[0].size();
+          if (solution[0][first_row] == solution[0][second_row]) {
+              ++l;
+              continue;
           }
           moveRow(solution, first_row, second_row);
         } else { // moveColumns()
           short first_columns = rand() % solution[1].size();
           short second_columns = rand() % solution[1].size();
-          while (solution[1][first_columns] == solution[1][second_columns]) {
-            second_columns = rand() % solution[1].size();
+          if (solution[1][first_columns] == solution[1][second_columns]) {
+              ++l;
+              continue;
           }
           moveColumns(solution, first_columns, second_columns);
         }
         if (calculateFormula(data, solution) > calculateFormula(data, best_solution)){
             l = 0;
+            best_solution = solution;
+            cout << calculateFormula(data, solution) << "\n";
+            for (vector<short> v : solution) {
+                for (short x : v) {
+                    cout << x << " ";
+                }
+                cout << "\n";
+            }
         } else {
             ++l;
         }

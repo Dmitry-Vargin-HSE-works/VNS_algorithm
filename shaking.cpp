@@ -45,9 +45,9 @@ vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> 
     unsigned long l = 0;
     while (l != lmax){
         if (rand() % 2) {
-            solution = merge(local_best, rand() % factory_num + 1, rand() % factory_num + 1);
+            solution = merge(solution, rand() % factory_num + 1, rand() % factory_num + 1);
         } else {
-            solution = divide(local_best, rand() % factory_num + 1);
+            solution = divide(solution, rand() % factory_num + 1);
         }
         if (calculateFormula(data, solution) > calculateFormula(data, local_best)) {
             local_best = solution;
