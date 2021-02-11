@@ -25,9 +25,18 @@ void VNS(unsigned long kmax, unsigned long lmax) {
     }
     */
     unsigned long k = 0;
-    // cout << "Do you want to download last best result?(y/n)\n";
-
-    vector<vector<short>> best_solution = createStartSolution(data.size(), data[0].size());
+    vector<vector<short>> best_solution;
+    cout << "Do you want to download last best result?(y/n)\n";
+    char message;
+    // cin >> message;
+    message = 'y';
+    if (message == 'y') {
+        best_solution = readSolution();
+        printSolution(data, best_solution);
+    } else {
+        best_solution = createStartSolution(data.size(), data[0].size());
+        printSolution(data, best_solution);
+    }
     while (k != kmax) {
         vector<vector<short>> local_best = shaking(data, best_solution, lmax);
         // cout << "shaking" << k;
@@ -36,7 +45,7 @@ void VNS(unsigned long kmax, unsigned long lmax) {
         if (calculateFormula(data, local_best) > calculateFormula(data, best_solution)) {
             best_solution = local_best;
             cout << k << "\n";
-            writeData(data, best_solution);
+            writeSolution(data, best_solution);
             k = 0;
         } else {
             ++k;
@@ -46,7 +55,7 @@ void VNS(unsigned long kmax, unsigned long lmax) {
 
 int main() {
     srand(time(nullptr));
-    VNS(1000000, 10);
+    VNS(10000000, 10);
     /*
     vector<vector<short>> data = readData();
     vector<vector<short>> v = createStartSolution(data.size(), data[0].size());

@@ -25,7 +25,7 @@ vector<vector<short>> divide(vector<vector<short>> solution, short factory); // 
 vector<vector<short>> merge(vector<vector<short>> solution, short first, short second); // merge them
 
 // checked
-unsigned short getFactoryNum(vector<vector<short>> solution);
+short getFactoryNum(vector<vector<short>> solution);
 // short isCorrectSolution(vector<vector<short>> solution);
 
 #endif //VNS_SHAKING_H

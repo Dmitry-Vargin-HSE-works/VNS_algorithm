@@ -20,9 +20,8 @@
 vector<vector<short>> readData() {
     vector<vector<short>> a;
     string path = filesystem::current_path().string();
-    path = path.substr(0, path.rfind('/'));
+    path = path.substr(0, path.rfind(slash));
     ifstream input_file(path + slash + "data" + slash + "input.txt");
-    // cout << path << "/data/input.txt\n\n";
     if (input_file.eof()) {
         cout << "File was not opened!\n";
         throw ;
@@ -51,6 +50,30 @@ vector<vector<short>> readData() {
     return a;
 }
 
+vector<vector<short>> readSolution() {
+    vector<vector<short>> a;
+    vector<short> tmp;
+    a.push_back(tmp);
+    a.push_back(tmp);
+    string path = filesystem::current_path().string();
+    path = path.substr(0, path.rfind(slash));
+    ifstream input_file(path + slash + "data" + slash + "output.txt");
+    if (input_file.eof()) {
+        cout << "File was not opened!\n";
+        throw ;
+    }
+    string line;
+    for (int i = 0; i < 2; ++i) {
+        getline(input_file, line);
+        vector<int> vint = splitIntString(line);
+        for (int x : vint) {
+            a[i].push_back(x);
+        }
+    }
+    input_file.close();
+    return a;
+}
+
 vector<int> splitIntString(string s) {
     vector<int> v;
     stringstream stream(s);
@@ -61,7 +84,7 @@ vector<int> splitIntString(string s) {
     return v;
 }
 
-void writeData(vector<vector<short>> data, vector<vector<short>> solution) {
+void writeSolution(vector<vector<short>> data, vector<vector<short>> solution) {
     string path = filesystem::current_path().string();
     path = path.substr(0, path.rfind('/'));
     ofstream output_file(path + slash + "data" + slash + "output.txt");
@@ -81,4 +104,16 @@ void writeData(vector<vector<short>> data, vector<vector<short>> solution) {
     cout << "\n\n";
 
     output_file.close();
+}
+
+void printSolution(vector<vector<short>> data, vector<vector<short>> solution) {
+    cout << "Your solution:" << calculateFormula(data, solution) << "\n";
+    for (short m : solution[0]) {
+        cout << m << " ";
+    }
+    cout << "\n";
+    for (short p : solution[1]) {
+        cout << p << " ";
+    }
+    cout << "\n\n";
 }
