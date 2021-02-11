@@ -14,29 +14,41 @@
 
 void VNS(unsigned long kmax, unsigned long lmax) {
     vector<vector<short>> data = readData();
-    unsigned long k = 0;
-    vector<vector<short>> best_solution; // = convertDataToStartSolution
-    while (k != kmax) {
-        //Shaking()
-        // vector<vector<int>> local_best = local search
-        // if (func(local_best) > func(best_solution))
-        //      best_solution = local_best
-        ++k;
-    }
-    writeData(best_solution);
-}
-
-int main() {
-    srand(time(nullptr));
-    /*
-    vector<vector<short>> data = readData();
-    vector<vector<short>> result = createStartSolution(data.size(), data[0].size());
-    for (vector<short> v : result) {
+    for (vector<short> v : data) {
         for (short x : v) {
             cout << x << " ";
         }
         cout << "\n";
     }
-    */
+    unsigned long k = 0;
+    vector<vector<short>> best_solution = createStartSolution(data.size(), data[0].size());
+    while (k != kmax) {
+        vector<vector<short>> local_best = localSearch(data, shaking(data, best_solution), lmax);
+        if (calculateFormula(data, local_best) > calculateFormula(data, best_solution)) {
+            best_solution = local_best;
+            k = 0;
+        } else {
+            ++k;
+        }
+    }
+    writeData(data, best_solution);
+}
+
+int main() {
+    srand(time(nullptr));
+    // VNS(1000, 1000);
+
+    vector<vector<short>> v = createStartSolution(4, 4);
+    v = divide(v, 1);
+    v = divide(v, 1);
+    v = divide(v, 2);
+    v = merge(v, 2, 2);
+    for (const vector<short>& a : v) {
+        for (short x : a) {
+            cout << x << " ";
+        }
+        cout << "\n";
+    }
+    cout << "Factory num: " << getFactoryNum(v);
     return 0;
 }
