@@ -1,6 +1,12 @@
 #include "usingdata.h"
 #include "localSearch.h"
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+    const std::string slash="\\";
+#else
+    const std::string slash="/";
+#endif
+
 #include <vector>
 #include <string>
 #include <cstring>
@@ -15,7 +21,7 @@ vector<vector<short>> readData() {
     vector<vector<short>> a;
     string path = filesystem::current_path().string();
     path = path.substr(0, path.rfind('/'));
-    ifstream input_file(path + "/data/input.txt");
+    ifstream input_file(path + slash + "data" + slash + "input.txt");
     // cout << path << "/data/input.txt\n\n";
     if (input_file.eof()) {
         cout << "File was not opened!\n";
@@ -58,7 +64,7 @@ vector<int> splitIntString(string s) {
 void writeData(vector<vector<short>> data, vector<vector<short>> solution) {
     string path = filesystem::current_path().string();
     path = path.substr(0, path.rfind('/'));
-    ofstream output_file(path + "/data/output.txt");
+    ofstream output_file(path + slash + "data" + slash + "output.txt");
 
     cout << "New best! " << calculateFormula(data, solution) << "\n";
     for (short m : solution[0]) {

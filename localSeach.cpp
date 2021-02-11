@@ -28,18 +28,12 @@ vector<vector<short>> localSearch(vector<vector<short>> data,
             l = 0;
             best_solution = solution;
             cout << calculateFormula(data, solution) << "\n";
-            for (vector<short> v : solution) {
-                for (short x : v) {
-                    cout << x << " ";
-                }
-                cout << "\n";
-            }
         } else {
             ++l;
         }
   }
 
-  return solution;
+  return best_solution;
 }
 
 double calculateFormula(vector<vector<short>> data,

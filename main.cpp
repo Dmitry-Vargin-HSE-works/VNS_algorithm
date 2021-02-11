@@ -16,31 +16,37 @@
 
 void VNS(unsigned long kmax, unsigned long lmax) {
     vector<vector<short>> data = readData();
+    /*
     for (vector<short> v : data) {
         for (short x : v) {
             cout << x << " ";
         }
         cout << "\n";
     }
+    */
     unsigned long k = 0;
+    // cout << "Do you want to download last best result?(y/n)\n";
 
     vector<vector<short>> best_solution = createStartSolution(data.size(), data[0].size());
     while (k != kmax) {
         vector<vector<short>> local_best = shaking(data, best_solution, lmax);
+        // cout << "shaking" << k;
         local_best = localSearch(data, shaking(data, best_solution, lmax), lmax);
+        // cout << " localSearch" << k << "\n";
         if (calculateFormula(data, local_best) > calculateFormula(data, best_solution)) {
             best_solution = local_best;
+            cout << k << "\n";
+            writeData(data, best_solution);
             k = 0;
         } else {
             ++k;
         }
     }
-    writeData(data, best_solution);
 }
 
 int main() {
     srand(time(nullptr));
-    VNS(10000, 10);
+    VNS(1000000, 10);
     /*
     vector<vector<short>> data = readData();
     vector<vector<short>> v = createStartSolution(data.size(), data[0].size());

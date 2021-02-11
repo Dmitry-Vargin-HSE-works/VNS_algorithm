@@ -43,6 +43,7 @@ vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> 
     }
     vector<vector<short>> local_best = solution;
     unsigned long l = 0;
+    lmax = lmax / 2;
     while (l != lmax){
         if (rand() % 2) {
             solution = merge(solution, rand() % factory_num + 1, rand() % factory_num + 1);
