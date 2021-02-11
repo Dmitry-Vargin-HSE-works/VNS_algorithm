@@ -9,6 +9,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <map>
+#include <iostream>
 
 using namespace std;
 
