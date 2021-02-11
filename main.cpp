@@ -35,7 +35,7 @@ void VNS(unsigned long kmax, unsigned long lmax) {
 }
 
 int main() {
-    srand(time(nullptr));
-    VNS(1000, 1000);
-    return 0;
+  srand(time(nullptr));
+  VNS(1000, 1000);
+  return 0;
 }
