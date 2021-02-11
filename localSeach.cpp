@@ -46,13 +46,13 @@ double calculateFormula(vector<vector<short>> data,
       }
       if (solution[1][j] == id_cluster && data[i][j] == 1) {
         ++num_1;
-      } else {
+      } else if (solution[1][j] == id_cluster && data[i][j] == 0) {
         ++num_0;
       }
     }
   }
 
-  return num_1 / (all_num_1 + num_0);
+  return (num_1 * 1.0 / (all_num_1 + num_0) * 1.0);
 }
 
 void moveRow (vector<vector<short>> solution,

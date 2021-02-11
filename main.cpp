@@ -11,6 +11,8 @@
 // example:
 // [0] 1 2 1 3 2 2
 // [1] 1 1 3 2
+/*1 2 2 1 2
+2 1 2 1 1 1 2*/
 
 void VNS(unsigned long kmax, unsigned long lmax) {
     vector<vector<short>> data = readData();
