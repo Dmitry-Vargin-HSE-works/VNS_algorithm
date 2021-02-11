@@ -57,7 +57,7 @@ vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> 
         }
         factory_num = getFactoryNum(solution);
     }
-    return solution;
+    return local_best;
 }
 
 vector<vector<short>> merge(vector<vector<short>> solution, short first, short second) {
