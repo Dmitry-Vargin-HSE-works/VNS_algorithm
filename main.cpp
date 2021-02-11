@@ -23,9 +23,11 @@ void VNS(unsigned long kmax, unsigned long lmax) {
         cout << "\n";
     }
     unsigned long k = 0;
+
     vector<vector<short>> best_solution = createStartSolution(data.size(), data[0].size());
     while (k != kmax) {
-        vector<vector<short>> local_best = localSearch(data, shaking(data, best_solution, lmax), lmax);
+        vector<vector<short>> local_best = shaking(data, best_solution, lmax);
+        local_best = localSearch(data, shaking(data, best_solution, lmax), lmax);
         if (calculateFormula(data, local_best) > calculateFormula(data, best_solution)) {
             best_solution = local_best;
             k = 0;
@@ -38,7 +40,8 @@ void VNS(unsigned long kmax, unsigned long lmax) {
 
 int main() {
     srand(time(nullptr));
-    // VNS(1000, 1000);
+    VNS(10000, 10);
+    /*
     vector<vector<short>> data = readData();
     vector<vector<short>> v = createStartSolution(data.size(), data[0].size());
     v = shaking(data, v, 20);
@@ -49,5 +52,6 @@ int main() {
         cout << "\n";
     }
     cout << "Factory num: " << getFactoryNum(v);
+    */
     return 0;
 }

@@ -14,8 +14,8 @@
 vector<vector<short>> readData() {
     vector<vector<short>> a;
     string path = filesystem::current_path().string();
-    path = path.substr(0, path.rfind('\\'));
-    ifstream input_file(path + "\\data\\input.txt");
+    path = path.substr(0, path.rfind('/'));
+    ifstream input_file(path + "/data/input.txt");
     // cout << path << "/data/input.txt\n\n";
     if (input_file.eof()) {
         cout << "File was not opened!\n";
