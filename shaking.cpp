@@ -19,6 +19,7 @@ vector<vector<short>> createStartSolution(int m, int p) {
 }
 
 vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> solution, unsigned long lmax) {
+    vector<vector<short>> tmp_solution;
     const unsigned int max_factory_num = min(data.size(), data[0].size());
     /*
     unsigned int *counter_lines = new unsigned int[factory_num+1];
@@ -42,22 +43,33 @@ vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> 
         divide(solution, 1);
     }
     vector<vector<short>> local_best = solution;
+    short line_size = data.size();
+    short column_size = data[0].size();
     unsigned long l = 0;
+    lmax = lmax / 4;
+    short rindex1 = 0, rindex2 = 0;
     while (l != lmax){
+
+        rindex1 = rand() % line_size;
         if (rand() % 2) {
-            solution = merge(solution, rand() % factory_num + 1, rand() % factory_num + 1);
+            rindex2 = rand() % line_size;
+            if (rindex1 == rindex2) {
+                ++l;
+                continue;
+            }
+            solution = merge(solution, solution[0][rindex1], solution[0][rindex2]);
         } else {
-            solution = divide(solution, rand() % factory_num + 1);
+            tmp_solution = divide(solution, solution[0][rindex1]);
+            if (getFactoryNum(tmp_solution) == -1) {
+                continue;
+            } else {
+                solution = tmp_solution;
+            }
         }
-        if (calculateFormula(data, solution) > calculateFormula(data, local_best)) {
-            local_best = solution;
-            l = 0;
-        } else {
-            ++l;
-        }
+        ++l;
         factory_num = getFactoryNum(solution);
     }
-    return local_best;
+    return solution;
 }
 
 vector<vector<short>> merge(vector<vector<short>> solution, short first, short second) {
@@ -87,34 +99,18 @@ vector<vector<short>> divide(vector<vector<short>> solution, short factory) {
     }
     short factory_num = getFactoryNum(solution);
     short second_factory = factory_num + 1;
-    short line_counter = 0;
-    short max_l = count(solution[0].begin(), solution[0].end(), factory) / 2;
-    for (int i = 0; i < solution[0].size(); ++i) {
-        if (solution[0][i] == factory) {
-            if (line_counter != max_l) {
-                solution[0][i] = second_factory;
-                ++line_counter;
-            } else {
-                break;
-            }
-        }
-    }
-    line_counter = 0;
-    max_l = count(solution[1].begin(), solution[1].end(), factory) / 2;
-    for (int i = 0; i < solution[1].size(); ++i) {
-        if (solution[1][i] == factory) {
-            if (line_counter != max_l) {
-                solution[1][i] = second_factory;
-                ++line_counter;
-            } else {
-                break;
+
+    for (int q = 0; q < 2; ++q) {
+        for (int i = 0; i < solution[0].size(); ++i) {
+            if (solution[q][i] == factory) {
+                solution[q][i] = rand() % 2 == 1 ? second_factory : solution[q][i];
             }
         }
     }
     return solution;
 }
 
-unsigned short getFactoryNum(vector<vector<short>> solution) {
+short getFactoryNum(vector<vector<short>> solution) {
     sort(solution[0].begin(), solution[0].end());
     solution[0].erase(unique(solution[0].begin(), solution[0].end()), solution[0].end());
 
@@ -124,8 +120,8 @@ unsigned short getFactoryNum(vector<vector<short>> solution) {
     unsigned short size = solution[0].size();
     for (int i = 0; i < size; ++i) {
         if (solution[0][i] != solution[1][i]) {
-            cout << "getFactoryNum\nFactories of lines and columns is not equal\n";
-            throw ;
+            // cout << "getFactoryNum\nFactories of lines and columns is not equal\n";
+            return -1;
         }
     }
     return solution[0].size();
