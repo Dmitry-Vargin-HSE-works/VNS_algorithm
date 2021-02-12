@@ -53,20 +53,42 @@ void VNS(unsigned long kmax, unsigned long lmax) {
     }
 }
 
+vector<vector<short>> twoOpt (vector<vector<short>> solution) {
+  vector<vector<short>> new_solution;
+  new_solution = solution;
+
+  int index = 1;
+  int choice = rand () % 2;
+  while (new_solution[choice][index - 1] == new_solution[choice][index + 1]) {
+    index = rand() % ((new_solution[choice].size() - 2) - 1 + 1) + 1;
+  }
+  choice = new_solution[0][index - 1];
+  new_solution[0][index - 1] = new_solution[0][index + 1];
+  new_solution[0][index + 1] = choice;
+
+  return new_solution;
+}
+
 int main() {
     srand(time(nullptr));
-    VNS(10000000, 10);
-    /*
-    vector<vector<short>> data = readData();
-    vector<vector<short>> v = createStartSolution(data.size(), data[0].size());
-    v = shaking(data, v, 20);
-    for (const vector<short>& a : v) {
-        for (short x : a) {
-            cout << x << " ";
-        }
-        cout << "\n";
+
+    vector<vector<short>> solution {{1, 1, 2, 3, 3},
+                                    {1, 1, 1, 3, 3, 2, 2}};
+
+    for (vector<short> v : solution) {
+      for (short x : v)
+        cout << x << " ";
+      cout << endl;
     }
-    cout << "Factory num: " << getFactoryNum(v);
-    */
+
+    while (true) {
+      cout << "New!\n";
+      for (vector<short> v : twoOpt(solution)) {
+        for (short x : v)
+          cout << x << " ";
+        cout << endl;
+      }
+    }
+
     return 0;
 }
