@@ -54,19 +54,16 @@ void VNS(unsigned long kmax, unsigned long lmax) {
 }
 
 vector<vector<short>> twoOpt (vector<vector<short>> solution) {
-  vector<vector<short>> new_solution;
-  new_solution = solution;
-
   int index = 1;
   int choice = rand () % 2;
-  while (new_solution[choice][index - 1] == new_solution[choice][index + 1]) {
-    index = rand() % ((new_solution[choice].size() - 2) - 1 + 1) + 1;
+  while (solution[choice][index - 1] == solution[choice][index + 1]) {
+    index = rand() % ((solution[choice].size() - 2) - 1 + 1) + 1;
   }
-  choice = new_solution[0][index - 1];
-  new_solution[0][index - 1] = new_solution[0][index + 1];
-  new_solution[0][index + 1] = choice;
+  int x = solution[choice][index - 1];
+  solution[choice][index - 1] = solution[choice][index + 1];
+  solution[choice][index + 1] = x;
 
-  return new_solution;
+  return solution;
 }
 
 int main() {
