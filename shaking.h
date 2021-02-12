@@ -23,6 +23,7 @@ vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> 
 
 vector<vector<short>> divide(vector<vector<short>> solution, short factory); // divide solution into pieces
 vector<vector<short>> merge(vector<vector<short>> solution, short first, short second); // merge them
+vector<vector<short>> pull(vector<vector<short>> solution, unsigned long lmax);
 
 // checked
 short getFactoryNum(vector<vector<short>> solution);

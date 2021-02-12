@@ -86,7 +86,7 @@ vector<int> splitIntString(string s) {
 
 void writeSolution(vector<vector<short>> data, vector<vector<short>> solution) {
     string path = filesystem::current_path().string();
-    path = path.substr(0, path.rfind('/'));
+    path = path.substr(0, path.rfind(slash));
     ofstream output_file(path + slash + "data" + slash + "output.txt");
 
     cout << "New best! " << calculateFormula(data, solution) << "\n";

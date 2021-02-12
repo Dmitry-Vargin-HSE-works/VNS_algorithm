@@ -1,6 +1,6 @@
 #include "shaking.h"
 #include "localSearch.h"
-
+#include "usingdata.h"
 
 vector<vector<short>> createStartSolution(int m, int p) {
     if (m < 1 || p < 1) {
@@ -46,28 +46,38 @@ vector<vector<short>> shaking(vector<vector<short>> data, vector<vector<short>> 
     short line_size = data.size();
     short column_size = data[0].size();
     unsigned long l = 0;
-    lmax = lmax / 4;
     short rindex1 = 0, rindex2 = 0;
-    while (l != lmax){
+    switch (rand() % 2) {
+        case 0:
+            lmax = lmax / 4;
+            while (l != lmax) {
 
-        rindex1 = rand() % line_size;
-        if (rand() % 2) {
-            rindex2 = rand() % line_size;
-            if (rindex1 == rindex2) {
+                rindex1 = rand() % line_size;
+                switch (rand() % 3) {
+                    case 0:
+                        rindex2 = rand() % line_size;
+                        if (rindex1 == rindex2) {
+                            ++l;
+                            continue;
+                        }
+                        solution = merge(solution, solution[0][rindex1], solution[0][rindex2]);
+                        break;
+                    case 1:
+                        tmp_solution = divide(solution, solution[0][rindex1]);
+                        if (getFactoryNum(tmp_solution) == -1) {
+                            continue;
+                        } else {
+                            solution = tmp_solution;
+                        }
+                        break;
+                }
                 ++l;
-                continue;
+                // factory_num = getFactoryNum(solution);
             }
-            solution = merge(solution, solution[0][rindex1], solution[0][rindex2]);
-        } else {
-            tmp_solution = divide(solution, solution[0][rindex1]);
-            if (getFactoryNum(tmp_solution) == -1) {
-                continue;
-            } else {
-                solution = tmp_solution;
-            }
-        }
-        ++l;
-        factory_num = getFactoryNum(solution);
+        case 1:
+            solution = pull(solution, lmax);
+            //printSolution(data, solution);
+            break;
     }
     return solution;
 }
@@ -103,10 +113,39 @@ vector<vector<short>> divide(vector<vector<short>> solution, short factory) {
     for (int q = 0; q < 2; ++q) {
         for (int i = 0; i < solution[0].size(); ++i) {
             if (solution[q][i] == factory) {
-                solution[q][i] = rand() % 2 == 1 ? second_factory : solution[q][i];
+                solution[q][i] = rand() % 2 ? second_factory : solution[q][i];
             }
         }
     }
+    return solution;
+}
+
+vector<vector<short>> pull(vector<vector<short>> solution, unsigned long lmax) {
+    vector<short> tmp;
+    vector<vector<short>> pull = {tmp, tmp};
+    unsigned short l_len = solution[0].size();
+    unsigned short c_len = solution[1].size();
+    unsigned short r;
+    unsigned short tmp_size = l_len;
+    while (tmp_size > l_len / 5) {
+        r = rand() % tmp_size;
+
+        pull[0].push_back(solution[0][r]);
+        solution[0].erase(solution[0].begin() + r);
+
+        tmp_size = solution[0].size();
+    }
+    tmp_size = c_len;
+    while (tmp_size > c_len / 5) {
+        r = rand() % tmp_size;
+
+        pull[1].push_back(solution[1][r]);
+        solution[1].erase(solution[1].begin() + r);
+
+        tmp_size = solution[1].size();
+    }
+    solution[0].insert(solution[0].end(), pull[0].begin(), pull[0].end());
+    solution[1].insert(solution[1].end(), pull[1].begin(), pull[1].end());
     return solution;
 }
 
