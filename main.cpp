@@ -53,39 +53,8 @@ void VNS(unsigned long kmax, unsigned long lmax) {
     }
 }
 
-vector<vector<short>> twoOpt (vector<vector<short>> solution) {
-  int index = 1;
-  int choice = rand () % 2;
-  while (solution[choice][index - 1] == solution[choice][index + 1]) {
-    index = rand() % ((solution[choice].size() - 2) - 1 + 1) + 1;
-  }
-  int x = solution[choice][index - 1];
-  solution[choice][index - 1] = solution[choice][index + 1];
-  solution[choice][index + 1] = x;
-
-  return solution;
-}
-
 int main() {
-    srand(time(nullptr));
-
-    vector<vector<short>> solution {{1, 1, 2, 3, 3},
-                                    {1, 1, 1, 3, 3, 2, 2}};
-
-    for (vector<short> v : solution) {
-      for (short x : v)
-        cout << x << " ";
-      cout << endl;
-    }
-
-    while (true) {
-      cout << "New!\n";
-      for (vector<short> v : twoOpt(solution)) {
-        for (short x : v)
-          cout << x << " ";
-        cout << endl;
-      }
-    }
-
-    return 0;
+  srand(time(nullptr));
+  VNS(1000000, 50);
+  return 0;
 }

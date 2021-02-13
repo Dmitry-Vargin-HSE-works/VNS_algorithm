@@ -21,5 +21,6 @@ void moveRow (vector<vector<short>> solution,
               short first_row, short second_row);
 void moveColumns(vector<vector<short>> solution,
                  short first_columns, short second_columns);
+vector<vector<short>> twoOpt (vector<vector<short>> solution);
 
 #endif //VNS_LOCALSEARCH_H
