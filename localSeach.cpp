@@ -72,3 +72,16 @@ void moveColumns(vector<vector<short>> solution,
   solution[1][second_columns] = solution[1][first_columns];
   solution[1][first_columns] = id_cluster;
 }
+
+vector<vector<short>> twoOpt (vector<vector<short>> solution) {
+  int index = 1;
+  int choice = rand () % 2;
+  while (solution[choice][index - 1] == solution[choice][index + 1]) {
+    index = rand() % ((solution[choice].size() - 2) - 1 + 1) + 1;
+  }
+  int x = solution[choice][index - 1];
+  solution[choice][index - 1] = solution[choice][index + 1];
+  solution[choice][index + 1] = x;
+
+  return solution;
+}
