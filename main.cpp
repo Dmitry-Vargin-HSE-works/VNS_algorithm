@@ -37,10 +37,13 @@ void VNS(unsigned long kmax, unsigned long lmax) {
         best_solution = createStartSolution(data.size(), data[0].size());
         printSolution(data, best_solution);
     }
-    while (k != kmax) {
-        vector<vector<short>> local_best = shaking(data, best_solution, lmax);
+    vector<vector<short>> local_best = best_solution;
+    while (k < kmax) {
+        if (k > 2000) {
+            local_best = shaking(data, best_solution, lmax);
+        }
         // cout << "shaking" << k;
-        local_best = localSearch(data, shaking(data, best_solution, lmax), lmax);
+        local_best = localSearch(data, local_best, lmax);
         // cout << " localSearch" << k << "\n";
         if (calculateFormula(data, local_best) > calculateFormula(data, best_solution)) {
             best_solution = local_best;
@@ -49,12 +52,24 @@ void VNS(unsigned long kmax, unsigned long lmax) {
             k = 0;
         } else {
             ++k;
+            // if (k % 500 == 0) cout << calculateFormula(data, local_best) << "\n";
         }
     }
 }
 
 int main() {
-  srand(time(nullptr));
-  VNS(1000000, 50);
-  return 0;
+    srand(time(nullptr));
+    /*
+    vector<vector<short>> v = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                               {1, 2, 3, 4, 5}};
+    v = pull(v, 1);
+    for (vector<short> q : v) {
+        for (short x : q) {
+            cout << x << " ";
+        }
+        cout << "\n";
+    }
+    */
+    VNS(1000000, 50);
+    return 0;
 }
