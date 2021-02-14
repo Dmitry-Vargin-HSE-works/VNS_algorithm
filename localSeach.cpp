@@ -5,30 +5,42 @@ vector<vector<short>> localSearch(vector<vector<short>> data,
     // rand() % (b - a + 1) + a
     unsigned long l = 0;
     vector<vector<short>> best_solution = solution;
+    int choice;
+    short first; short second;
     while (l <= lmax) {
-        short choice = rand() % 2;
-        if (choice == 0) { // moveRow()
-          short first_row = rand() % solution[0].size();
-          short second_row = rand() % solution[0].size();
-          if (solution[0][first_row] == solution[0][second_row]) {
-              ++l;
-              continue;
-          }
-          moveRow(solution, first_row, second_row);
-        } else { // moveColumns()
-          short first_columns = rand() % solution[1].size();
-          short second_columns = rand() % solution[1].size();
-          if (solution[1][first_columns] == solution[1][second_columns]) {
-              ++l;
-              continue;
-          }
-          moveColumns(solution, first_columns, second_columns);
+        choice = rand() % 3;
+        switch (choice) {
+            case 0:
+                first = rand() % solution[0].size();
+                second = rand() % solution[0].size();
+                if (solution[0][first] == solution[0][second]) {
+                    ++l;
+                    continue;
+                }
+                solution = moveRow(solution, first, second);
+                break;
+            case 1:
+                first = rand() % solution[1].size();
+                second = rand() % solution[1].size();
+                if (solution[1][first] == solution[1][second]) {
+                    ++l;
+                    continue;
+                }
+                solution = moveColumns(solution, first, second);
+                break;
+
+            case 2:
+                solution = twoOpt(solution);
+                break;
+
         }
+
         if (calculateFormula(data, solution) > calculateFormula(data, best_solution)){
             l = 0;
             best_solution = solution;
-            cout << calculateFormula(data, solution) << "\n";
+            // cout << calculateFormula(data, solution) << "\n";
         } else {
+            solution = best_solution;
             ++l;
         }
   }
@@ -59,29 +71,43 @@ double calculateFormula(vector<vector<short>> data,
   return num_1 * 1.0 / (all_num_1 + num_0);
 }
 
-void moveRow (vector<vector<short>> solution,
+vector<vector<short>> moveRow (vector<vector<short>> solution,
               short first_row, short second_row) {
   short id_cluster = solution[0][second_row];
   solution[0][second_row] = solution[0][first_row];
   solution[0][first_row] = id_cluster;
+    return solution;
 }
 
-void moveColumns(vector<vector<short>> solution,
+vector<vector<short>> moveColumns(vector<vector<short>> solution,
                  short first_columns, short second_columns) {
   short id_cluster = solution[1][second_columns];
   solution[1][second_columns] = solution[1][first_columns];
   solution[1][first_columns] = id_cluster;
+    return solution;
 }
 
 vector<vector<short>> twoOpt (vector<vector<short>> solution) {
-  int index = 1;
-  int choice = rand () % 2;
-  while (solution[choice][index - 1] == solution[choice][index + 1]) {
-    index = rand() % ((solution[choice].size() - 2) - 1 + 1) + 1;
-  }
-  int x = solution[choice][index - 1];
-  solution[choice][index - 1] = solution[choice][index + 1];
-  solution[choice][index + 1] = x;
-
-  return solution;
+    int choice = rand () % 2;
+    unsigned int size = solution[choice].size();
+    int i1 = 0;
+    int i2 = 0;
+    unsigned short q = 0;
+    while ((i1 == i2) || (abs(i1-i2) > size / 2)) {
+        i1 = rand() % size;
+        i2 = rand() % size;
+        ++q;
+        if (q > 100) {
+            return solution;
+        }
+    }
+    // i1 must be less then i2
+    if (i1 > i2) {
+        int tmp = i1;
+        i1 = i2;
+        i2 = tmp;
+    }
+    // 2opt
+    reverse(solution[choice].begin()+i1, solution[choice].begin()+i2);
+    return solution;
 }

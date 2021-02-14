@@ -29,7 +29,7 @@ void VNS(unsigned long kmax, unsigned long lmax) {
     cout << "Do you want to download last best result?(y/n)\n";
     char message;
     // cin >> message;
-    message = 'n';
+    message = 'y';
     if (message == 'y') {
         best_solution = readSolution();
         cout << best_solution[0].size() << " " << best_solution[1].size() << "\n";
@@ -64,14 +64,22 @@ int main() {
     /*
     vector<vector<short>> v = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                                {1, 2, 3, 4, 5}};
-    v = pull(v, 1);
     for (vector<short> q : v) {
         for (short x : q) {
             cout << x << " ";
         }
         cout << "\n";
     }
-    */
+    cout << "\n";
+    moveRow(v, 1, 2);
+    for (vector<short> q : v) {
+        for (short x : q) {
+            cout << x << " ";
+        }
+        cout << "\n";
+    }
+     */
     VNS(1000000, 30);
+
     return 0;
 }
