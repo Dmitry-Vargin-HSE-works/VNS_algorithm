@@ -111,7 +111,7 @@ vector<vector<short>> divide(vector<vector<short>> solution, short factory) {
     short second_factory = factory_num + 1;
 
     for (int q = 0; q < 2; ++q) {
-        for (int i = 0; i < solution[0].size(); ++i) {
+        for (int i = 0; i < solution[q].size(); ++i) {
             if (solution[q][i] == factory) {
                 solution[q][i] = rand() % 2 ? second_factory : solution[q][i];
             }

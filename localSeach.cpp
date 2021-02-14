@@ -2,35 +2,70 @@
 
 vector<vector<short>> localSearch(vector<vector<short>> data,
                                 vector<vector<short>> solution, unsigned long lmax) {
-    // rand() % (b - a + 1) + a
-    unsigned long l = 0;
-    vector<vector<short>> best_solution = solution;
-    while (l <= lmax) {
-        short choice = rand() % 2;
-        if (choice == 0) { // moveRow()
-          short first_row = rand() % solution[0].size();
-          short second_row = rand() % solution[0].size();
-          if (solution[0][first_row] == solution[0][second_row]) {
-              ++l;
-              continue;
-          }
-          moveRow(solution, first_row, second_row);
-        } else { // moveColumns()
-          short first_columns = rand() % solution[1].size();
-          short second_columns = rand() % solution[1].size();
-          if (solution[1][first_columns] == solution[1][second_columns]) {
-              ++l;
-              continue;
-          }
-          moveColumns(solution, first_columns, second_columns);
-        }
-        if (calculateFormula(data, solution) > calculateFormula(data, best_solution)){
-            l = 0;
-            best_solution = solution;
-            cout << calculateFormula(data, solution) << "\n";
-        } else {
-            ++l;
-        }
+  unsigned long l = 0;
+  vector<vector<short>> best_solution = solution;
+  while (l <= lmax) {
+    short first_row = 0;
+    short num = 0;
+    for (int i = 0; i < data.size(); i++) {
+      short num_1 = 0;
+      for (int j = 0; j < data[i].size(); j++) {
+        num_1 += data[i][j];
+      }
+      if (num < num_1) {
+        num = num_1;
+        first_row = i;
+      }
+    }
+    short second_row = rand() % solution[0].size();
+    if (solution[0][first_row] == solution[0][second_row]) {
+      ++l;
+      continue;
+    }
+    moveRow(solution, first_row, second_row);
+
+    if (calculateFormula(data, solution) > calculateFormula(data, best_solution)){
+      l = 0;
+      best_solution = solution;
+      cout << calculateFormula(data, solution) << "\n";
+    } else {
+      ++l;
+    }
+  }
+
+  while (l <= lmax) {
+    short first_row = 0;
+    short num = 0;
+    for (int j = 0; j < data[0].size(); j++) {
+      short num_1 = 0;
+      for (int i = 0; i < data.size(); i++) {
+        num_1 += data[i][j];
+      }
+      if (num < num_1) {
+        num = num_1;
+        first_row = j;
+      }
+    }
+    short second_row = rand() % solution[1].size();
+    if (solution[1][first_row] == solution[1][second_row]) {
+      ++l;
+      continue;
+    }
+    moveColumns(solution, first_row, second_row);
+
+    if (calculateFormula(data, solution) > calculateFormula(data, best_solution)){
+      l = 0;
+      best_solution = solution;
+      cout << calculateFormula(data, solution) << "\n";
+    } else {
+      ++l;
+    }
+  }
+
+  vector<vector<short>> best2_solution = best_solution;
+  best2_solution = twoOpt(best_solution);
+  if (calculateFormula(data, best2_solution) > calculateFormula(data, best_solution)) {
+    best_solution = best2_solution;
   }
 
   return best_solution;
