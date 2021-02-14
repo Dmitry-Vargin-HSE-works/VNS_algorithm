@@ -127,7 +127,7 @@ vector<vector<short>> pull(vector<vector<short>> solution, unsigned long lmax) {
     unsigned short c_len = solution[1].size();
     unsigned short r;
     unsigned short tmp_size = l_len;
-    while (tmp_size > l_len / 5) {
+    while (tmp_size > l_len / 4) {
         r = rand() % tmp_size;
 
         pull[0].push_back(solution[0][r]);
@@ -136,7 +136,7 @@ vector<vector<short>> pull(vector<vector<short>> solution, unsigned long lmax) {
         tmp_size = solution[0].size();
     }
     tmp_size = c_len;
-    while (tmp_size > c_len / 5) {
+    while (tmp_size > c_len / 4) {
         r = rand() % tmp_size;
 
         pull[1].push_back(solution[1][r]);
